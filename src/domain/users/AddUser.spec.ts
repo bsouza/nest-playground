@@ -15,7 +15,7 @@ describe('AddUser', () => {
     };
   });
 
-  it('should invoke repo when a new user is created', () => {
+  it('should return the new user', () => {
     const name = 'bruno';
     const input = new AddUserInput(name, 35);
 
@@ -24,5 +24,17 @@ describe('AddUser', () => {
     const useCase = new AddUser(repoMock);
     const result = useCase.execute(input);
     expect(result.name).toBe(name);
+  });
+
+  it('should invoke repo when a new user is created', () => {
+    const name = 'bruno';
+    const input = new AddUserInput(name, 35);
+
+    repoMock.add.mockImplementation(() => User.create(name, 35));
+
+    const useCase = new AddUser(repoMock);
+    useCase.execute(input);
+
+    expect(repoMock.add).toBeCalledTimes(1);
   });
 });
