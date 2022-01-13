@@ -17,6 +17,7 @@ export class AppController {
 
   @Post()
   createUser(): UserData {
+    console.log('endpoint: ', this.addUser);
     const input = new AddUserInput('bruno', 35);
     const output = this.addUser.execute(input);
     return UserData.from(output);
